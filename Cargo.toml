@@ -1,8 +1,10 @@
 [package]
 name = "warp-sessions"
-version = "0.1.0"
+license = "MIT"
+version = "1.0.0"
 authors = ["ajp <8890201+ajpauwels@users.noreply.github.com>"]
 edition = "2018"
+description = "Generic session middleware for the warp HTTP framework"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
