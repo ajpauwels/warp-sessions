@@ -6,26 +6,31 @@ This repo provides session middleware for the warp framework that:
 
 ## how
 ```rust
-use warp_sessions::MemoryStore;
+use warp::{Filter, Rejection};
+use warp_sessions::{MemoryStore, SessionWithStore};
 
 #[tokio::main]
 async fn main() {
-	let session_store = MemoryStore::new();
+    let session_store = MemoryStore::new();
 
-	let route = warp::get()
-		.and(warp::path!("test"))
-		.and(warp_sessions::request::with_session(                                      // 1.
-			session_store,
-			None,
-		))
-		.and_then(move |session_with_store: SessionWithStore<MemoryStore>| async move { // 2.
-			Ok::<_, Rejection>((
-				warp::reply::html("<html></html>".to_string()),
-				session_with_store,
-			))
-		})
-		.untuple_one()
-		.and_then(warp_sessions::reply::with_session);                                  // 3.
+    let route = warp::get()
+        .and(warp::path!("test"))
+        .and(warp_sessions::request::with_session(session_store, None))            /1.
+        .and_then(
+            move |session_with_store: SessionWithStore<MemoryStore>| async move {  /2.
+                Ok::<_, Rejection>((
+                    warp::reply::html("<html></html>".to_string()),
+                    session_with_store,
+                ))
+            },
+        )
+        .untuple_one()
+        .and_then(warp_sessions::reply::with_session);                             /3.
+
+    // Start the server
+    let port = 8080;
+    println!("starting server listening on ::{}", port);
+    warp::serve(route).run(([0, 0, 0, 0], port)).await;
 }
 ```
 
