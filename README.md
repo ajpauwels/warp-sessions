@@ -18,7 +18,7 @@ async fn main() {
 			session_store,
 			None,
 		))
-		.and_then(move |sessions_with_store: SessionWithStore<MemoryStore>| async move {
+		.and_then(move |session_with_store: SessionWithStore<MemoryStore>| async move {
 			Ok::<_, Rejection>((
 				warp::reply::html("<html></html>".to_string()),
 				session_with_store,
