@@ -44,6 +44,6 @@ async fn main() {
    `CookieOptions` struct. Modifications can be made to the `Session` object within this struct.
    It is returned as part as a tuple at the end of the handler.
    
-3. The `warp_sessions::reply::with_session(...)` handler accepts a type that implements a
+3. The `warp_sessions::reply::with_session(...)` handler accepts a type that implements
    `warp::Reply` and a `SessionWithStore` struct. It then handles saving any changes made
    to the session and updating the session ID cookie if necessary.

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter, Result as FmtResult};
 
-// CookieOptions encodes all the parameters that go into the Set-Cookie header
+/// Encodes all of the parameters that can go into the Set-Cookie header
 #[derive(Default, Serialize, Deserialize, Clone)]
 pub struct CookieOptions {
     pub cookie_name: String,
@@ -15,6 +15,7 @@ pub struct CookieOptions {
 }
 
 impl Display for CookieOptions {
+    /// Outputs a string compatible with the Set-Cookie header
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         let cookie_value = match &self.cookie_value {
             Some(cv) => cv,
@@ -48,6 +49,10 @@ impl Display for CookieOptions {
     }
 }
 
+/// Encodes the SameSite cookie option, which can be either
+/// None, Lax, Strict, or not provided at all. If not provided,
+/// browsers will typically default to Lax. This behavior, however,
+/// is vendor-dependent.
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
 pub enum SameSiteCookieOption {
     None,
@@ -55,6 +60,7 @@ pub enum SameSiteCookieOption {
     Strict,
 }
 
+/// Default SameSite option is Lax
 impl Default for SameSiteCookieOption {
     fn default() -> Self {
         SameSiteCookieOption::Lax

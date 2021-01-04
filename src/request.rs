@@ -1,6 +1,11 @@
 use super::{CookieOptions, Session, SessionError, SessionStore, SessionWithStore};
 use warp::{Filter, Rejection};
 
+/// This function builds a filter from a SessionStore and a set of
+/// cookie options for the session. The filter pulls the cookie with
+/// name 'sid' from the request and uses the passed in session store
+/// to retrieve the session. It returns the session for use by the
+/// downstream session handler.
 pub fn with_session<T: SessionStore>(
     session_store: T,
     cookie_options: Option<CookieOptions>,
