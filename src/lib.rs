@@ -47,12 +47,11 @@
 //! }
 //! ```
 //!
-//! This session middleware is meant to be very light. Other than the actual session
-//! store, it has no shared state. It could be reused multiple times in the same route,
-//! and with different session stores. One could envision a cached store which is tried
-//! first with a slower storage as backup.
+//! This session middleware is meant to be very light and has no shared state other than
+//! the session store.. It could be reused multiple times in the same route, and with
+//! different session stores.
 //!
-//! The backing session logic is provided by the excellent [async-session](https://docs.rs/async-session/2.0.1/async_session/)
+//! The backing session logic is provided by the [async-session](https://docs.rs/async-session/2.0.1/async_session/)
 //! crate. Simply implement the `SessionStore` trait and pass it on to the provided
 //! `with_session(...)` filter to use it.
 
