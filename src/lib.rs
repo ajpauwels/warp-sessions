@@ -43,7 +43,7 @@
 //!     // Start the server
 //!     let port = 8080;
 //!     println!("starting server listening on ::{}", port);
-//!     warp::serve(route).run(([0, 0, 0, 0], port)).await;
+//!     // warp::serve(route).run(([0, 0, 0, 0], port)).await;
 //! }
 //! ```
 //!
