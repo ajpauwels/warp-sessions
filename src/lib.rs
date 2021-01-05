@@ -47,8 +47,14 @@
 //! }
 //! ```
 //!
+//! The `None` provided as the second argument to `warp_sessions::request::with_session`
+//! can optionally be `Some(CookieOptions)`. This encodes the full set of possible cookie
+//! parameters that could be applied to the session ID cookie. Check the [CookieOptions](
+//! crate::cookie::CookieOptions) for information on fields. The default implementation is
+//! used if `None` is provided.
+//!
 //! This session middleware is meant to be very light and has no shared state other than
-//! the session store.. It could be reused multiple times in the same route, and with
+//! the session store. It could be reused multiple times in the same route, and with
 //! different session stores.
 //!
 //! The backing session logic is provided by the [async-session](https://docs.rs/async-session/2.0.1/async_session/)
