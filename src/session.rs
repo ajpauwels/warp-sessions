@@ -68,12 +68,17 @@ where
     T: Reply,
 {
     fn into_response(self) -> warp::reply::Response {
+        let mut res = self.reply.into_response();
         if let Some(_) = self.cookie_options.cookie_value {
-            warp::reply::with_header(self.reply, "Set-Cookie", self.cookie_options.to_string())
-                .into_response()
-        } else {
-            self.reply.into_response()
+            res.headers_mut().append(
+                "Set-Cookie",
+                http::header::HeaderValue::from_str(&self.cookie_options.to_string()).unwrap(),
+            );
+            //warp::reply::with_header(self.reply, "Set-Cookie", self.cookie_options.to_string())
+            //.into_response()
         }
+
+        res
     }
 }
 
