@@ -7,4 +7,5 @@ This repo provides session middleware for the warp framework that:
 - Integrates into existing Warp-style filter chains
 
 Get started by checking out the [docs](https://docs.rs/warp-sessions).
+
 You can also find more extensive code samples in the [examples](https://github.com/ajpauwels/warp-sessions/tree/main/examples) folder.
