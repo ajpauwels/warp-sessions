@@ -10,7 +10,7 @@ async fn main() {
         .and(warp_sessions::request::with_session(
             session_store,
             Some(CookieOptions {
-                cookie_name: "sid".to_string(),
+                cookie_name: "sid",
                 cookie_value: None,
                 max_age: Some(600),
                 domain: Some("domain.com".to_string()),
