@@ -4,7 +4,7 @@ use std::fmt::{Display, Formatter, Result as FmtResult};
 /// Encodes all of the parameters that can go into the Set-Cookie header
 #[derive(Default, Serialize, Deserialize, Clone)]
 pub struct CookieOptions {
-    pub cookie_name: String,
+    pub cookie_name: &'static str,
     pub cookie_value: Option<String>,
     pub max_age: Option<u64>,
     pub domain: Option<String>,
@@ -100,7 +100,7 @@ mod tests {
     #[test]
     fn test_cookie_name_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "key".to_string(),
+            cookie_name: "key",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -115,7 +115,7 @@ mod tests {
     #[test]
     fn test_cookie_value_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: Some("value".to_string()),
             max_age: None,
             domain: None,
@@ -130,7 +130,7 @@ mod tests {
     #[test]
     fn test_cookie_age_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: Some(100),
             domain: None,
@@ -145,7 +145,7 @@ mod tests {
     #[test]
     fn test_cookie_domain_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: Some("domain.com".to_string()),
@@ -160,7 +160,7 @@ mod tests {
     #[test]
     fn test_cookie_path_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -175,7 +175,7 @@ mod tests {
     #[test]
     fn test_cookie_secure_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -190,7 +190,7 @@ mod tests {
     #[test]
     fn test_cookie_httponly_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -205,7 +205,7 @@ mod tests {
     #[test]
     fn test_cookie_samesite_strict_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -220,7 +220,7 @@ mod tests {
     #[test]
     fn test_cookie_samesite_lax_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -235,7 +235,7 @@ mod tests {
     #[test]
     fn test_cookie_samesite_none_string_is_added() {
         let cookie = CookieOptions {
-            cookie_name: "".to_string(),
+            cookie_name: "",
             cookie_value: None,
             max_age: None,
             domain: None,
@@ -250,7 +250,7 @@ mod tests {
     #[test]
     fn test_cookie_with_mixed_options_string_is_correct() {
         let cookie = CookieOptions {
-            cookie_name: "sid".to_string(),
+            cookie_name: "sid",
             cookie_value: Some("abc123".to_string()),
             max_age: Some(100),
             domain: None,

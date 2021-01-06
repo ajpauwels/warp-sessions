@@ -12,11 +12,15 @@ pub fn with_session<T: SessionStore>(
 ) -> impl Filter<Extract = (SessionWithStore<T>,), Error = Rejection> + Clone {
     let cookie_options = match cookie_options {
         Some(co) => co,
-        None => CookieOptions::default(),
+        None => {
+            let mut co = CookieOptions::default();
+            co.cookie_name = "sid";
+            co
+        }
     };
     warp::any()
         .and(warp::any().map(move || session_store.clone()))
-        .and(warp::cookie::optional("sid"))
+        .and(warp::cookie::optional(cookie_options.cookie_name))
         .and(warp::any().map(move || cookie_options.clone()))
         .and_then(
 	    |session_store: T,
