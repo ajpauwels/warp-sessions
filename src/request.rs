@@ -10,10 +10,11 @@ pub fn with_session<T: SessionStore>(
     session_store: T,
     cookie_options: Option<CookieOptions>,
 ) -> impl Filter<Extract = (SessionWithStore<T>,), Error = Rejection> + Clone {
-    let cookie_options = match cookie_options {
+    let mut cookie_options = match cookie_options {
         Some(co) => co,
         None => CookieOptions::default(),
     };
+    cookie_options.cookie_name = "sid".to_owned();
     warp::any()
         .and(warp::any().map(move || session_store.clone()))
         .and(warp::cookie::optional("sid"))
