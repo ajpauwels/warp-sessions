@@ -1,5 +1,6 @@
 # warp-sessions
 [![](http://meritbadge.herokuapp.com/warp-sessions)](https://crates.io/crates/warp-sessions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This repo provides session middleware for the warp framework that:
 - Supports async
 - Provides plug-and-play functionality for multiple session backends
