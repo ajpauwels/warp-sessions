@@ -53,7 +53,7 @@
 //! crate::cookie::CookieOptions) for information on fields. The default implementation is
 //! used if `None` is provided.
 //!
-//! Addresses issue (#609)[https://github.com/seanmonstar/warp/issues/609] by appending to
+//! Addresses issue [#609](https://github.com/seanmonstar/warp/issues/609) by appending to
 //! the header map rather than inserting, allowing for multiple session cookies to be set.
 //!
 //! This session middleware is meant to be very light and has no shared state other than
