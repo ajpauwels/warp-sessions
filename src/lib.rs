@@ -20,7 +20,7 @@
 //!
 //! ```
 //! use warp::{Filter, Rejection};
-//! use warp_sessions::{MemoryStore, SessionWithStore};
+//! use warp_sessions::{MemoryStore, SessionWithStore, CookieOptions, SameSiteCookieOption};
 //!
 //! #[tokio::main]
 //! async fn main() {
