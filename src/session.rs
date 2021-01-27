@@ -1,7 +1,31 @@
 use crate::cookie::CookieOptions;
 use crate::error::SessionError;
 use async_session::{Session, SessionStore};
+use async_trait::async_trait;
+use std::{ops::Deref, sync::Arc};
 use warp::{Rejection, Reply};
+
+#[derive(Debug, Clone)]
+struct ArcSessionStore<T: SessionStore>(Arc<T>);
+
+#[async_trait]
+impl<T> SessionStore for ArcSessionStore<T>
+where
+    T: SessionStore,
+{
+    async fn load_session(&self, cookie_value: String) -> async_session::Result<Option<Session>> {
+        self.0.deref().load_session(cookie_value).await
+    }
+    async fn store_session(&self, session: Session) -> async_session::Result<Option<String>> {
+        self.0.deref().store_session(session).await
+    }
+    async fn destroy_session(&self, session: Session) -> async_session::Result {
+        self.0.deref().destroy_session(session).await
+    }
+    async fn clear_store(&self) -> async_session::Result {
+        self.0.deref().clear_store().await
+    }
+}
 
 /// SessionWithStore binds a session object with its backing store and some cookie options.
 /// This is passed around by routes wanting to do things with a session.
@@ -74,8 +98,6 @@ where
                 "Set-Cookie",
                 http::header::HeaderValue::from_str(&self.cookie_options.to_string()).unwrap(),
             );
-            //warp::reply::with_header(self.reply, "Set-Cookie", self.cookie_options.to_string())
-            //.into_response()
         }
 
         res
