@@ -86,6 +86,3 @@ pub use async_session::{MemoryStore, Session, SessionStore};
 pub use cookie::{CookieOptions, SameSiteCookieOption};
 pub use error::SessionError;
 pub use session::{SessionWithStore, WithSession};
-
-#[cfg(test)]
-pub use session::tests::MockSessionStore;

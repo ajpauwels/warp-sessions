@@ -86,31 +86,7 @@ where
 pub mod tests {
     use super::{SessionWithStore, WithSession};
     use crate::cookie::CookieOptions;
-    use async_session::{MemoryStore, Session, SessionStore};
-    use async_trait::async_trait;
-    use mockall::predicate::*;
-    use mockall::*;
-    use std::fmt::{self, Debug, Formatter};
-
-    mock! {
-    pub SessionStore {}
-
-    impl Debug for SessionStore {
-        fn fmt<'a>(&self, f: &mut Formatter<'a>) -> fmt::Result;
-    }
-
-    impl Clone for SessionStore {
-            fn clone(&self) -> Self;
-    }
-
-    #[async_trait]
-    impl SessionStore for SessionStore {
-            async fn load_session(&self, cookie_value: String) -> async_session::Result<Option<Session>>;
-            async fn store_session(&self, session: Session) -> async_session::Result<Option<String>>;
-            async fn destroy_session(&self, session: Session) -> async_session::Result;
-            async fn clear_store(&self) -> async_session::Result;
-    }
-    }
+    use async_session::{MemoryStore, Session};
 
     #[tokio::test]
     async fn test_session_reply_with_no_data_changed() {
