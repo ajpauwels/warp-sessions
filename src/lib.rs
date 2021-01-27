@@ -28,7 +28,19 @@
 //!
 //!     let route = warp::get()
 //!         .and(warp::path!("test"))
-//!         .and(warp_sessions::request::with_session(session_store, None))
+//!         .and(warp_sessions::request::with_session(
+//!             session_store,
+//!             Some(CookieOptions {
+//!                 cookie_name: "sid",
+//!                 cookie_value: None,
+//!                 max_age: Some(60),
+//!                 domain: None,
+//!                 path: None,
+//!                 secure: false,
+//!                 http_only: true,
+//!                 same_site: Some(SameSiteCookieOption::Strict),
+//!             }),
+//!         ))
 //!         .and_then(
 //!             move |session_with_store: SessionWithStore<MemoryStore>| async move {
 //!                 Ok::<_, Rejection>((
@@ -47,11 +59,10 @@
 //! }
 //! ```
 //!
-//! The `None` provided as the second argument to `warp_sessions::request::with_session`
-//! can optionally be `Some(CookieOptions)`. This encodes the full set of possible cookie
-//! parameters that could be applied to the session ID cookie. Check the [CookieOptions](
-//! crate::cookie::CookieOptions) for information on fields. The default implementation is
-//! used if `None` is provided.
+//! The `Some(CookieOptions)` provided as the second argument to `warp_sessions::request::with_session`
+//! can optionally be `None`. This will result in a value of CookieOptions::default(). This option
+//! encodes the full set of possible cookie parameters that could be applied to the session ID cookie.
+//! Check the [CookieOptions](crate::cookie::CookieOptions) for information on fields.
 //!
 //! Addresses issue [#609](https://github.com/seanmonstar/warp/issues/609) by appending to
 //! the header map rather than inserting, allowing for multiple session cookies to be set.
