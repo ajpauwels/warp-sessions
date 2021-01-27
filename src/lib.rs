@@ -85,4 +85,4 @@ pub mod request;
 pub use async_session::{MemoryStore, Session, SessionStore};
 pub use cookie::{CookieOptions, SameSiteCookieOption};
 pub use error::SessionError;
-pub use session::{SessionWithStore, WithSession};
+pub use session::{ArcSessionStore, SessionWithStore, WithSession};

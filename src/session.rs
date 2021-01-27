@@ -6,7 +6,7 @@ use std::{ops::Deref, sync::Arc};
 use warp::{Rejection, Reply};
 
 #[derive(Debug, Clone)]
-struct ArcSessionStore<T: SessionStore>(Arc<T>);
+pub struct ArcSessionStore<T: SessionStore>(Arc<T>);
 
 #[async_trait]
 impl<T> SessionStore for ArcSessionStore<T>
