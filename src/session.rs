@@ -83,7 +83,7 @@ where
 }
 
 #[cfg(test)]
-pub mod tests {
+mod tests {
     use super::{SessionWithStore, WithSession};
     use crate::cookie::CookieOptions;
     use async_session::{MemoryStore, Session};
