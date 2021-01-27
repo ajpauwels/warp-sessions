@@ -15,7 +15,7 @@ pub async fn with_session<T: Reply, S: SessionStore>(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::WithSession;
     use crate::{cookie::CookieOptions, SessionWithStore};
     use async_session::{MemoryStore, Session};
