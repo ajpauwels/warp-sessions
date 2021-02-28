@@ -29,6 +29,7 @@ where
 
 /// SessionWithStore binds a session object with its backing store and some cookie options.
 /// This is passed around by routes wanting to do things with a session.
+#[derive(Clone)]
 pub struct SessionWithStore<S: SessionStore> {
     pub session: Session,
     pub session_store: S,
