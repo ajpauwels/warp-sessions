@@ -10,7 +10,7 @@ repository = "https://github.com/ajpauwels/warp-sessions.git"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-async-session = "2.0.1"
+async-session = "3.0.0"
 async-trait = "0.1.42"
 serde = { version = "1.0.120", features = ["derive"] }
 warp = "0.3.0"
