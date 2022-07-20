@@ -1,9 +1,9 @@
 [package]
 name = "warp-sessions"
 license = "MIT"
-version = "1.0.16"
+version = "1.0.17"
 authors = ["ajp <8890201+ajpauwels@users.noreply.github.com>"]
-edition = "2018"
+edition = "2021"
 description = "Generic session middleware for the warp HTTP framework"
 repository = "https://github.com/ajpauwels/warp-sessions.git"
 
@@ -11,8 +11,8 @@ repository = "https://github.com/ajpauwels/warp-sessions.git"
 
 [dependencies]
 async-session = "3.0.0"
-async-trait = "0.1.51"
-serde = { version = "1.0.130", features = ["derive"] }
+async-trait = "0.1.56"
+serde = { version = "1.0.139", features = ["derive"] }
 warp = "0.3.2"
-tokio = { version = "1.14.0", features = ["macros", "rt-multi-thread"] }
-http = "0.2.5"
+tokio = { version = "1.20.0", features = ["macros", "rt-multi-thread"] }
+http = "0.2.8"
