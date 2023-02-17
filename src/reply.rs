@@ -7,10 +7,15 @@ use warp::{Rejection, Reply};
 /// to reply containing the ID of this particular session.
 /// When the request::with_session filter runs, it will pick this cookie
 /// up and restore the session from the store.
-pub async fn with_session<T: Reply, S: SessionStore>(
+pub async fn with_session<T, S>(
     reply: T,
     session_with_store: SessionWithStore<S>,
-) -> Result<WithSession<T>, Rejection> {
+) -> Result<WithSession<T>, Rejection>
+where
+    T: Reply,
+    S: SessionStore + Send + Sync + 'static,
+    S::Error: Send + Sync + 'static,
+{
     WithSession::new(reply, session_with_store).await
 }
 

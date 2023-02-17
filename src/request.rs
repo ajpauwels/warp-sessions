@@ -6,10 +6,14 @@ use warp::{Filter, Rejection};
 /// name 'sid' from the request and uses the passed in session store
 /// to retrieve the session. It returns the session for use by the
 /// downstream session handler.
-pub fn with_session<T: SessionStore>(
+pub fn with_session<T>(
     session_store: T,
     cookie_options: Option<CookieOptions>,
-) -> impl Filter<Extract = (SessionWithStore<T>,), Error = Rejection> + Clone {
+) -> impl Filter<Extract = (SessionWithStore<T>,), Error = Rejection> + Clone
+where
+    T: SessionStore + Clone + Send + Sync + 'static,
+    T::Error: Send + Sync + 'static,
+{
     let cookie_options = match cookie_options {
         Some(co) => co,
         None => {

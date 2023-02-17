@@ -8,9 +8,8 @@ description = "Generic session middleware for the warp HTTP framework"
 repository = "https://github.com/ajpauwels/warp-sessions.git"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-async-session = "3.0.0"
+async-session = { git = "https://github.com/http-rs/async-session", branch = "overhaul-session-and-session-store" }
 async-trait = "0.1.63"
 serde = { version = "1.0.152", features = ["derive"] }
 warp = "0.3.3"

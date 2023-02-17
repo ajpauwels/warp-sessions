@@ -11,18 +11,20 @@ pub struct ArcSessionStore<T: SessionStore>(pub Arc<T>);
 #[async_trait]
 impl<T> SessionStore for ArcSessionStore<T>
 where
-    T: SessionStore,
+    T: SessionStore + Send + Sync + 'static,
+    T::Error: Send + Sync + 'static,
 {
-    async fn load_session(&self, cookie_value: String) -> async_session::Result<Option<Session>> {
+    type Error = T::Error;
+    async fn load_session(&self, cookie_value: String) -> Result<Option<Session>, Self::Error> {
         self.0.deref().load_session(cookie_value).await
     }
-    async fn store_session(&self, session: Session) -> async_session::Result<Option<String>> {
+    async fn store_session(&self, session: Session) -> Result<Option<String>, Self::Error> {
         self.0.deref().store_session(session).await
     }
-    async fn destroy_session(&self, session: Session) -> async_session::Result {
+    async fn destroy_session(&self, session: Session) -> Result<(), Self::Error> {
         self.0.deref().destroy_session(session).await
     }
-    async fn clear_store(&self) -> async_session::Result {
+    async fn clear_store(&self) -> Result<(), Self::Error> {
         self.0.deref().clear_store().await
     }
 }
@@ -30,7 +32,7 @@ where
 /// SessionWithStore binds a session object with its backing store and some cookie options.
 /// This is passed around by routes wanting to do things with a session.
 #[derive(Clone)]
-pub struct SessionWithStore<S: SessionStore> {
+pub struct SessionWithStore<S> {
     pub session: Session,
     pub session_store: S,
     pub cookie_options: CookieOptions,
@@ -52,10 +54,14 @@ where
     /// header to it. This cookie contains the session ID. If the session was
     /// destroyed, it handles destroying the session in the store and removing
     /// the cookie.
-    pub async fn new<S: SessionStore>(
+    pub async fn new<S>(
         reply: T,
         session_with_store: SessionWithStore<S>,
-    ) -> Result<WithSession<T>, Rejection> {
+    ) -> Result<WithSession<T>, Rejection>
+    where
+        S: SessionStore + Send + Sync + 'static,
+        S::Error: Send + Sync + 'static,
+    {
         let mut cookie_options = session_with_store.cookie_options;
 
         if session_with_store.session.is_destroyed() {
