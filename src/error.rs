@@ -4,31 +4,31 @@ use warp::reject::Reject;
 
 /// Error type that converts to a warp::Rejection
 #[derive(Debug)]
-pub enum SessionError {
+pub enum SessionError<E> {
     /// Represents an error which occurred while loading a session from
     /// the backing session store.
-    LoadError { source: async_session::Error },
+    LoadError { source: E },
 
     /// Represents an error that occurred while saving a session to
     /// the backing session store.
-    StoreError { source: async_session::Error },
+    StoreError { source: E },
 
     /// Represents an error that occurred while destroying a session
     /// record from the backing session store.
-    DestroyError { source: async_session::Error },
+    DestroyError { source: E },
 }
 
-impl Error for SessionError {
+impl<E: Error + 'static> Error for SessionError<E> {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            SessionError::LoadError { ref source } => Some(source.as_ref()),
-            SessionError::StoreError { ref source } => Some(source.as_ref()),
-            SessionError::DestroyError { ref source } => Some(source.as_ref()),
+            SessionError::LoadError { ref source } => Some(source),
+            SessionError::StoreError { ref source } => Some(source),
+            SessionError::DestroyError { ref source } => Some(source),
         }
     }
 }
 
-impl Display for SessionError {
+impl<E: Error> Display for SessionError<E> {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match *self {
             SessionError::LoadError { .. } => {
@@ -44,4 +44,4 @@ impl Display for SessionError {
     }
 }
 
-impl Reject for SessionError {}
+impl<E: Error + Send + Sync + 'static> Reject for SessionError<E> {}
