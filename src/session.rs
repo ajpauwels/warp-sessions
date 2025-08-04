@@ -97,7 +97,8 @@ where
         if let Some(_) = self.cookie_options.cookie_value {
             res.headers_mut().append(
                 "Set-Cookie",
-                http::header::HeaderValue::from_str(&self.cookie_options.to_string()).unwrap(),
+                warp::http::header::HeaderValue::from_str(&self.cookie_options.to_string())
+                    .unwrap(),
             );
         }
 
