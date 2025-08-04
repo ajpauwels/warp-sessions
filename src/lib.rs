@@ -8,7 +8,7 @@
 //!    This filter will, upon receiving a request, extract the session ID
 //!    cookie, fetch the matching session, and return it to be used by the
 //!    route handler. It'll also handle creating a new session in the absence
-//!     of one.
+//!    of one.
 //! 2. The route handler operates as normal, fetching and setting information
 //!    in the session struct it received.
 //! 3. When the route is ready to reply, it creates its reply struct and places
@@ -44,7 +44,7 @@
 //!         .and_then(
 //!             move |session_with_store: SessionWithStore<MemoryStore>| async move {
 //!                 Ok::<_, Rejection>((
-//! 		        warp::reply::html("<html></html>".to_string()),
+//!                     warp::reply::html("<html></html>".to_string()),
 //!                     session_with_store,
 //!                 ))
 //!             },
