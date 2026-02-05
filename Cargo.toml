@@ -11,7 +11,10 @@ repository = "https://github.com/ajpauwels/warp-sessions.git"
 
 [dependencies]
 async-session = "3.0.0"
-async-trait = "0.1.88"
-serde = { version = "1.0.219", features = ["derive"] }
-warp = "0.3.7"
-tokio = { version = "1.47.1", features = ["macros", "rt-multi-thread"] }
+async-trait = "0.1.89"
+serde = { version = "1.0.228", features = ["derive"] }
+warp = "0.4.2"
+tokio = { version = "1.49.0", features = ["macros", "rt-multi-thread"] }
+
+[dev-dependencies]
+warp = { version = "0.4.2", features = ["server"] }
